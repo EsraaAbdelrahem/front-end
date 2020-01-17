@@ -2,7 +2,7 @@
   <div> 
     <div v-for="(review,key) in filteredReviews" :key="key"
           class="reviews d-flex flex-row">
-        <p> {{review.score}} </p>
+        <p v-bind="orderedScore"> {{review.score}} </p>
         <p> {{ review.review }}</p>
     </div>
     <ul class="pagination d-flex justify-content-center flex-row">
@@ -52,7 +52,7 @@
 
 <script>
     import { mapGetters } from "vuex";
-
+    
     export default {
     data() {
         return {
@@ -82,11 +82,15 @@
         ...mapGetters({
         hotel: "Hotels/hotel"
         }),
+        orderedScore () {
+            console.log(this.hotel.reviews);
+            return _.sortBy(this.hotel.reviews, {'score':'desc'})
+        },
         allReviews () {
             return Object.keys(this.hotel.reviews).map(pid => this.hotel.reviews[pid])
         },
         filteredReviews () {
-        return  this.allReviews.slice((this.currentPage - 1) * this.reviewsPerPage, this.currentPage * this.reviewsPerPage )
+          return  this.allReviews.slice((this.currentPage - 1) * this.reviewsPerPage, this.currentPage * this.reviewsPerPage )
         },
         startPage() {
         if (this.currentPage === 1) {

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
+import _ from 'lodash'
 import hotelCard from '../src/components/hotelCard'
 import hotelDetails from '../src/components/hotelDetails'
 import pagination from '../src/components/pagination'
@@ -13,6 +14,8 @@ Vue.component('hotel-details',hotelDetails);
 Vue.component('pagination',pagination);
 Vue.component('hotels-Listing-Details',hotelsListingDetails);
 
+//plugins
+Vue.use(_);
 
 Vue.config.productionTip = false
 
