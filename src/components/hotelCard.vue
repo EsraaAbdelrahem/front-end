@@ -59,7 +59,7 @@
   div {
     display: flex;
     justify-content: space-between;
-    margin: 10px;
+    margin: 9px;
     .card {
     width: 50%;
     flex-wrap: wrap;

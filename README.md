@@ -18,6 +18,8 @@ and so on even we can do a unit test to our UI
 ---------------------------------------------------
 2- according to the sorting we can make a function that compare 
 between two values and return the bigger one 
+also we can make a dropdown menu about thes choices the user can 
+sort the reviews with 
 ```
 ## Project setup
 ```

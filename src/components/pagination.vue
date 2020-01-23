@@ -2,7 +2,7 @@
   <div> 
     <div v-for="(review,key) in filteredReviews" :key="key"
           class="reviews d-flex flex-row">
-        <p> {{review.score}} </p>
+        <p v-bind="orderedScore"> {{review.score}} </p>
         <p> {{ review.review }}</p>
     </div>
     <ul class="pagination d-flex justify-content-center flex-row">
@@ -52,7 +52,7 @@
 
 <script>
     import { mapGetters } from "vuex";
-
+    
     export default {
     data() {
         return {
@@ -82,66 +82,70 @@
         ...mapGetters({
         hotel: "Hotels/hotel"
         }),
+        orderedScore () {
+            console.log(this.hotel.reviews);
+            return _.sortBy(this.hotel.reviews, {'score':'desc'})
+        },
         allReviews () {
             return Object.keys(this.hotel.reviews).map(pid => this.hotel.reviews[pid])
         },
         filteredReviews () {
-        return  this.allReviews.slice((this.currentPage - 1) * this.reviewsPerPage, this.currentPage * this.reviewsPerPage )
+          return  this.allReviews.slice((this.currentPage - 1) * this.reviewsPerPage, this.currentPage * this.reviewsPerPage )
         },
         startPage() {
-        if (this.currentPage === 1) {
-            return 1;
-        }
+            if (this.currentPage === 1) {
+                return 1;
+            }
 
-        if (this.currentPage === this.totalPages) { 
-            return this.totalPages - this.maxVisibleButtons + 1;
-        }
+            if (this.currentPage === this.totalPages) { 
+                return this.totalPages - this.maxVisibleButtons + 1;
+            }
 
-        return this.currentPage - 1;
+            return this.currentPage - 1;
 
         },
         endPage() {
         
-        return Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages);
+         return Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages);
         
         },
         pages() {
-        const range = [];
+            const range = [];
 
-        for (let i = this.startPage; i <= this.endPage; i+= 1 ) {
-            range.push({
-            name: i,
-            isDisabled: i === this.currentPage 
-            });
-        }
+            for (let i = this.startPage; i <= this.endPage; i+= 1 ) {
+                range.push({
+                name: i,
+                isDisabled: i === this.currentPage 
+                });
+            }
 
-        return range;
+            return range;
         },
         isInFirstPage() {
-        return this.currentPage === 1;
+            return this.currentPage === 1;
         },
         isInLastPage() {
-        return this.currentPage === this.totalPages;
+            return this.currentPage === this.totalPages;
         },
     },
     methods: {
         onClickFirstPage() {
-        this.$emit('pagechanged', 1);
+         this.$emit('pagechanged', 1);
         },
         onClickPreviousPage() {
-        this.$emit('pagechanged', this.currentPage - 1);
+         this.$emit('pagechanged', this.currentPage - 1);
         },
         onClickPage(page) {
-        this.$emit('pagechanged', page);
+         this.$emit('pagechanged', page);
         },
         onClickNextPage() {
-        this.$emit('pagechanged', this.currentPage + 1);
+         this.$emit('pagechanged', this.currentPage + 1);
         },
         onClickLastPage() {
-        this.$emit('pagechanged', this.totalPages);    
+         this.$emit('pagechanged', this.totalPages);    
         },
         isPageActive(page) {
-        return this.currentPage === page;
+         return this.currentPage === page;
         },
     }
     };

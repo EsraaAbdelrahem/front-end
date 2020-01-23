@@ -35,8 +35,22 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
-        <!--reviews-->
-        <h2>Reviews</h2>
+        <!--reviews and sorting-->
+        <div class="sorting-reviews d-flex flex-row justify-content-between">
+          <h2>Reviews</h2>
+          <div class="dropdown mt-3">
+            <button class="btn btn-secondary dropdown-toggle" 
+                    type="button" id="dropdownMenuButton" 
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Sort by
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">High review score</a>
+              <a class="dropdown-item" href="#">Low review score</a>
+            </div>
+          </div>
+        </div>
+       
         <div class="card reviews">
           <!--pagination-->
            <pagination :total-pages="5"
@@ -96,6 +110,9 @@
       }
       .input-style {
         width: 40px;
+      }
+      .sorting-reviews {
+        margin: 13px;
       }
     }
   }
